@@ -8,16 +8,16 @@ function Card(props: {
 }) {
   return (
     <div className="py-4 card card-compact w-full bg-base-100 shadow-xl">
-      <div className="flex ">
-        <figure>
-          <img
-            src="https://api.lorem.space/image/shoes?w=400&h=225"
-            alt="Shoes"
-          />
-        </figure>
+      <div className=" relative ">
+        <img
+          className="w-full"
+          src="https://api.lorem.space/image/shoes?w=400&h=225"
+          alt="Shoes"
+        />
+
         <img
           onClick={() => props.setFavourite()}
-          className="w-12 h-12 cursor-pointer"
+          className="w-12 h-12 cursor-pointer absolute top-2 right-2"
           src={
             props.favourite
               ? "https://s2.svgbox.net/hero-solid.svg?ic=heart&color=FF0000"
@@ -230,41 +230,25 @@ function Home() {
 
   return (
     <div>
-      <header className="border w-full h-20 grid grid-cols-3 gap-4 bg-red-500">
+      <header className="border px-4 items-center w-full h-20 grid grid-cols-3 gap-4 bg-red-500">
         <img
           className="w-15 h-20"
           src="https://logos.textgiraffe.com/logos/logo-name/Lia-designstyle-smoothie-m.png"
           alt=""
         />
-        <div>
+        <div className="relative flex items-center">
           <input
             onChange={(evt) => setValue(evt.currentTarget.value)}
             type="text"
             placeholder="Type here"
-            className="input input-bordered input-primary w-full max-w-xs mt-4"
+            className="input input-bordered input-primary w-full  "
           />
-          <button className="btn gap-2 w-15 mt-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
-            Button
-          </button>
+          <span className="absolute right-2">🔍</span>
         </div>
 
         <img
           onClick={() => setOpen(!open)}
-          className="w-12 h-12 ml-auto relative"
+          className=" w-6  ml-auto relative"
           src="https://s2.svgbox.net/hero-solid.svg?ic=menu"
           alt=""
         />
@@ -272,7 +256,7 @@ function Home() {
         <div
           className={
             open
-              ? " border w-60 h-56 rounded-lg z-10 absolute top-10 right-0 flex text-center justify-center bg-white shadow-lg "
+              ? " border w-60 h-56 rounded-lg z-50 absolute top-10 right-0 flex text-center justify-center bg-white shadow-lg "
               : "hidden"
           }
         >
@@ -290,43 +274,44 @@ function Home() {
         </div>
       </header>
       {/* save the state of the price */}
-      <select
-        id="value"
-        defaultValue="Select select"
-        onChange={(evt) => setSelect(Number(evt.currentTarget.value))}
-        className="select w-full max-w-xs"
-      >
-        <option> max price</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="40">40</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
-        <option value="70">70</option>
-        <option value="80">80</option>
-        <option value="90">90</option>
-        <option value="100">100</option>
-      </select>
+      <div className="flex py-2 px-4 border-b shadow sticky top-0 z-40 bg-white">
+        <select
+          id="value"
+          defaultValue="Select select"
+          onChange={(evt) => setSelect(Number(evt.currentTarget.value))}
+          className="select w-auto "
+        >
+          <option> max price</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+          <option value="60">60</option>
+          <option value="70">70</option>
+          <option value="80">80</option>
+          <option value="90">90</option>
+          <option value="100">100</option>
+        </select>
+        <select
+          id="value"
+          defaultValue="Select select1"
+          onChange={(evt) => setSelect1(Number(evt.currentTarget.value))}
+          className="select w-auto ml-2 "
+        >
+          <option> number</option>
+          <option value="32">32</option>
+          <option value="33">33</option>
+          <option value="34">34</option>
+          <option value="35">35</option>
+          <option value="36">36</option>
+          <option value="37">37</option>
+          <option value="38">38</option>
+          <option value="39">39</option>
+          <option value="40">40</option>
+        </select>
+      </div>
 
-      <select
-        id="value"
-        defaultValue="Select select1"
-        onChange={(evt) => setSelect1(Number(evt.currentTarget.value))}
-        className="select w-full max-w-xs"
-      >
-        <option> number</option>
-        <option value="32">32</option>
-        <option value="33">33</option>
-        <option value="34">34</option>
-        <option value="35">35</option>
-        <option value="36">36</option>
-        <option value="37">37</option>
-        <option value="38">38</option>
-        <option value="39">39</option>
-        <option value="40">40</option>
-      </select>
-
-      <div className="grid grid-cols-5 gap-4 p-4">
+      <div className="grid  sm:grid-cols-2 grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 p-4  ">
         {papoutsia
           //filer(1): price < selection , filter(2):if a number of the shoe is in the array of shoes , map:creates a lot of cards
           .filter((x) => x.price < select)
@@ -346,7 +331,7 @@ function Home() {
           ))}
       </div>
 
-      <footer className="footer p-10 bg-neutral text-neutral-content fixed bottom-0">
+      <footer className="footer grid-cols-1 grid md:grid-cols-3 p-10 bg-neutral text-neutral-content">
         <div>
           <span className="footer-title">Services</span>
           <a className="link link-hover">Branding</a>
